@@ -9,7 +9,7 @@ let data= [
     }
 ]
 
-const Login = ({setToken, saveUser, token}) => {
+const Login = ({setToken, setUser, token}) => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [error, setError] = useState();
@@ -22,7 +22,11 @@ const Login = ({setToken, saveUser, token}) => {
         if(user){
             if(password===user.password){
                 setToken(user.token);
-                saveUser(user.email);
+                setUser(user.email);
+            }
+            else{
+                setError("User or password are wrong")
+                
             }
             
         }
@@ -44,7 +48,9 @@ const Login = ({setToken, saveUser, token}) => {
         
     }
     
-    if(!!token){
+    if(token){
+        return <Redirect to='/home'  />
+    }
     return (
         <div className="container pt-3">
         <br/>
@@ -55,14 +61,14 @@ const Login = ({setToken, saveUser, token}) => {
         
         <div className="row justify-content-center">
         <div className="col-sm-8 mb-3">
-        <input type="text" onChange={(event)=>setEmail(event.target.value)} className="form-control form-control-lg" placeholder="Username"/>
+        <input required type="text" onChange={(event)=>setEmail(event.target.value)} className="form-control form-control-lg" placeholder="Username"/>
         </div>
         
         </div>
         
         <div className="row justify-content-center">
         <div className="col-sm-8 mb-3">
-        <input type="password" onChange={(event)=>setPassword(event.target.value)} className="form-control form-control-lg" placeholder="Password"/>
+        <input required type="password" onChange={(event)=>setPassword(event.target.value)} className="form-control form-control-lg" placeholder="Password"/>
         </div>
         
         </div>
@@ -89,11 +95,11 @@ const Login = ({setToken, saveUser, token}) => {
         </div>
         
         );
-    }
-    else{
-        return <Redirect to='/home'  />
-    }
     };
+   
+       
+    
+ 
     
     export default Login;
     
