@@ -40,7 +40,7 @@ function Items({ currentItems, setUpdate }) {
         {currentItems &&
             currentItems.map((item) => (
                 
-                <li className="list-group-item d-flex justify-content-between align-items-center">
+                <li key={item.name} className="list-group-item d-flex justify-content-between align-items-center">
                 {item.name }
                 
                 {
@@ -72,7 +72,6 @@ function Items({ currentItems, setUpdate }) {
                 useEffect(() => {
                     // Fetch items from another resources.
                     const endOffset = itemOffset + itemsPerPage;
-                    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
                     setCurrentItems(items.slice(itemOffset, endOffset));
                     setPageCount(Math.ceil(items.length / itemsPerPage));
                     
